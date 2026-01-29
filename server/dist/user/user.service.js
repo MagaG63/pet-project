@@ -55,15 +55,28 @@ let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
+    async findByEmail(email) {
+        return this.userModel.findOne({ where: { email } });
+    }
     async create(data) {
         const hashpass = await bcrypt.hash(data.password, 10);
-        const user = {
+        return this.userModel.create({
             name: data.name,
             email: data.email,
             password: hashpass,
-            desc: data.desc ?? null,
-        };
-        return this.userModel.create(user);
+            desc: data.desc ?? '',
+        });
+    }
+    async loginUser(data) {
+        const user = await this.userModel.findOne({ where: { email: data.email } });
+        if (!user) {
+            throw new common_1.NotFoundException('Пользователь не найден');
+        }
+        const isValid = await bcrypt.compare(data.password, user.password);
+        if (!isValid) {
+            throw new common_1.UnauthorizedException('Неверный пароль');
+        }
+        return user;
     }
 };
 exports.UserService = UserService;

@@ -44,14 +44,6 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], User.prototype, "desc", void 0);
-__decorate([
-    sequelize_typescript_1.CreatedAt,
-    __metadata("design:type", Date)
-], User.prototype, "createdAt", void 0);
-__decorate([
-    sequelize_typescript_1.UpdatedAt,
-    __metadata("design:type", Date)
-], User.prototype, "updatedAt", void 0);
 exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'Users' })
 ], User);

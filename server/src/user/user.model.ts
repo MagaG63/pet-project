@@ -34,10 +34,4 @@ export class User extends Model<User> {
     allowNull: true,
   })
   declare desc: string;
-
-  @CreatedAt
-  declare createdAt: Date;
-
-  @UpdatedAt
-  declare updatedAt: Date;
 }

@@ -47,6 +47,9 @@ const sequelize_1 = require("@nestjs/sequelize");
 const user_module_1 = require("./user/user.module");
 const user_model_1 = require("./user/user.model");
 const auth_module_1 = require("./user/auth/auth.module");
+const product_module_1 = require("./product/product.module");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -65,6 +68,10 @@ exports.AppModule = AppModule = __decorate([
             }),
             user_module_1.UserModule,
             auth_module_1.AuthModule,
+            product_module_1.ProductModule,
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'public'),
+            }),
         ],
     })
 ], AppModule);

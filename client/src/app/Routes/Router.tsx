@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../shared/lib/hooks";
 import { useEffect } from "react";
 import { refreshThunk } from "../../entities/user/model/user.thunks";
 import ProtectedRoute from "../../shared/lib/ProtectedRoute";
+import MainPage from "../../pages/main/ui/MainPage";
+import OneProduct from "../../pages/oneproduct/ui/OneProduct";
 
 export default function Router(): React.JSX.Element {
   const Loggin = useAppSelector((str) => !!str.user.user);
@@ -17,7 +19,9 @@ export default function Router(): React.JSX.Element {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={"asss"} />
+        <Route path="/" element={<MainPage />} />
+
+        <Route path="product/:id" element={<OneProduct />} />
 
         <Route
           path="auth"

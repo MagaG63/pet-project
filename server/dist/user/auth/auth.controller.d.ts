@@ -4,13 +4,17 @@ import type { UserResponse } from './auth.service';
 export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
-    register(dto: CreateUserDto): Promise<{
+    register(dto: CreateUserDto, res: any): Promise<{
         access_token: string;
         user: UserResponse;
     }>;
-    login(req: any): Promise<{
+    login(req: any, res: any): Promise<{
         access_token: string;
         user: UserResponse;
     }>;
+    refresh(req: any, res: any): Promise<any>;
+    logout(res: any): {
+        message: string;
+    };
     getProfile(req: any): UserResponse;
 }

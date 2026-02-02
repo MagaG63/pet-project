@@ -55,6 +55,13 @@ let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
+    async findById(id) {
+        const user = await this.userModel.findByPk(id);
+        if (!user) {
+            throw new common_1.NotFoundException('Пользователь не найден');
+        }
+        return user;
+    }
     async findByEmail(email) {
         return this.userModel.findOne({ where: { email } });
     }

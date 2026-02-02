@@ -27,12 +27,15 @@ let AuthService = class AuthService {
         }
         const user = await this.userService.create(dto);
         const userData = this.formatUser(user);
+        const accessToken = this.jwtService.sign({
+            email: userData.email,
+            sub: user.id,
+            name: userData.name,
+        }, { expiresIn: '15m' });
+        const refreshToken = this.jwtService.sign({ sub: user.id }, { expiresIn: '7d' });
         return {
-            access_token: this.jwtService.sign({
-                email: userData.email,
-                sub: user.id,
-                name: userData.name,
-            }),
+            access_token: accessToken,
+            refresh_token: refreshToken,
             user: userData,
         };
     }
@@ -41,14 +44,39 @@ let AuthService = class AuthService {
     }
     async login(user) {
         const userData = this.formatUser(user);
+        const accessToken = this.jwtService.sign({
+            email: userData.email,
+            sub: user.id,
+            name: userData.name,
+        }, { expiresIn: '15m' });
+        const refreshToken = this.jwtService.sign({ sub: user.id }, { expiresIn: '7d' });
         return {
-            access_token: this.jwtService.sign({
-                email: userData.email,
-                sub: user.id,
-                name: userData.name,
-            }),
+            access_token: accessToken,
+            refresh_token: refreshToken,
             user: userData,
         };
+    }
+    async refreshTokens(refreshToken) {
+        try {
+            const payload = this.jwtService.verify(refreshToken);
+            const user = await this.userService.findById(payload.sub);
+            if (!user) {
+                throw new common_1.UnauthorizedException('Пользователь не найден');
+            }
+            const newAccessToken = this.jwtService.sign({
+                email: user.email,
+                sub: user.id,
+                name: user.name,
+            }, { expiresIn: '15m' });
+            const newRefreshToken = this.jwtService.sign({ sub: user.id }, { expiresIn: '7d' });
+            return {
+                access_token: newAccessToken,
+                refresh_token: newRefreshToken,
+            };
+        }
+        catch (error) {
+            throw new common_1.UnauthorizedException('Неверный refresh токен');
+        }
     }
     formatUser(user) {
         const { password, ...userData } = user.toJSON();

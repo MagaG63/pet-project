@@ -1,0 +1,61 @@
+nav {
+  width: 100%;
+  padding: 1rem 5%;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+   margin-bottom: 2rem;
+
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: aqua;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links li a {
+    position: relative;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: azure;
+    transition: 0.5s;
+}
+
+.nav-links li a:hover {
+    color: aqua;
+    text-shadow: 0 0 10px aqua;
+}
+
+.contBtn {
+    display: flex;
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    background: aqua;
+    color: black;
+    box-shadow: 0 0 15px aqua;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background: #77ffff;
+    box-shadow: 0 0 7px aqua;
+}

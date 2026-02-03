@@ -41,9 +41,13 @@ dotenv.config();
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const path_1 = require("path");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.setGlobalPrefix('api');
+    app.useStaticAssets((0, path_1.join)(__dirname, '..', 'public'), {
+        prefix: '/images/',
+    });
     app.use((0, cookie_parser_1.default)());
     app.enableCors({
         origin: 'http://localhost:3000',

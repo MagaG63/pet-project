@@ -6,6 +6,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.model';
 import { AuthModule } from './user/auth/auth.module';
+import { ProductModule } from './product/product.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,6 +24,10 @@ import { AuthModule } from './user/auth/auth.module';
     }),
     UserModule,
     AuthModule,
+    ProductModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
   ],
 })
 export class AppModule {}

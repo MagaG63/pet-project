@@ -5,13 +5,39 @@ import { oneProductThunk, productThunk } from "./product.thunk";
 const initialState: ProductState = {
   product: null,
   currentProduct: null,
+  basket: [],
   loading: false,
+};
+
+const hydratedInitialState: ProductState = {
+  ...initialState,
+  basket: (() => {
+    const basket = sessionStorage.getItem("basket");
+    return basket ? JSON.parse(basket) : [];
+  })(),
 };
 
 const productSlice = createSlice({
   name: "product",
-  initialState,
-  reducers: {},
+  initialState: hydratedInitialState,
+  reducers: {
+    deleteBasket: (state, action) => {
+      if (state.basket) {
+        state.basket = state.basket?.filter((el) => el.id !== action.payload);
+        sessionStorage.setItem("basket", JSON.stringify(state.basket));
+      }
+    },
+
+    addToBasket: (state, action) => {
+      if (!state.basket) state.basket = [];
+      state.basket.push(action.payload);
+      sessionStorage.setItem("basket", JSON.stringify(state.basket));
+    },
+    clearBasket: (state) => {
+      state.basket = [];
+      sessionStorage.removeItem("basket");
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(productThunk.fulfilled, (state, action) => {
@@ -26,7 +52,7 @@ const productSlice = createSlice({
         state.loading = false;
       });
 
-      builder
+    builder
       .addCase(oneProductThunk.fulfilled, (state, action) => {
         state.currentProduct = action.payload;
         state.loading = false;
@@ -40,5 +66,6 @@ const productSlice = createSlice({
       });
   },
 });
+export const { addToBasket, clearBasket, deleteBasket } = productSlice.actions;
 
-export default productSlice.reducer
+export default productSlice.reducer;

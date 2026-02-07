@@ -21,20 +21,11 @@ navigate('/auth')
       <div className="logo">Заглавное</div>
       <ul className="nav-links">
         <li>
-          <a href="/">Home</a>
+          <a href="/">Главная</a>
         </li>
-        <li>
-          <a href="">Home</a>
-        </li>
-        <li>
-          <a href="">Home</a>
-        </li>
-        <li>
-          <a href="">Home</a>
-        </li>
-        <li>
-          <a href="">Home</a>
-        </li>
+       <li>
+        <a href="/backet">Корзина</a>
+       </li>
       </ul>
         <div className="contBtn">
           { user ? (<button className="btn" onClick={leaveHandle}>Выйти</button>) : (<button className="btn" onClick={handleSubmit}>Войти</button>)}

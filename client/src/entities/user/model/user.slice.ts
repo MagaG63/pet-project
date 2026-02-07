@@ -12,7 +12,7 @@ import type { User } from "../model/user.types";
 const initialState: UserState = {
   user: null,
   accessToken: null,
-  loading: false, 
+  loading: true,
 };
 
 const userSlice = createSlice({
@@ -46,15 +46,16 @@ const userSlice = createSlice({
         state.loading = false;
       })
 
-      .addCase(loginThunk.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.accessToken = action.payload.access_token;
         state.loading = false;
       })
-      .addCase(loginThunk.rejected, (state) => {
+      .addCase(loginThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginThunk.rejected, (state,action) => {
+        console.error(action.error);
         state.loading = false;
       })
 

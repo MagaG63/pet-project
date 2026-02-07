@@ -13,17 +13,14 @@ class UserService {
   }
 
   static async refresh() {
-    const { data: refreshData } = await api.post(
-      "/auth/refresh",
-      {},
-      { withCredentials: true },
-    );
-
-    const { data: profileData } = await api.post("/auth/profile");
+    const [refreshResponse, profileResponse] = await Promise.all([
+      api.post("/auth/refresh", {}, { withCredentials: true }),
+      api.post("/auth/profile"),
+    ]);
 
     return {
-      access_token: refreshData.access_token,
-      user: profileData,
+      access_token: refreshResponse.data.access_token,
+      user: profileResponse.data,
     };
   }
 

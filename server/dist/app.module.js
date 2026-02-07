@@ -50,6 +50,7 @@ const auth_module_1 = require("./user/auth/auth.module");
 const product_module_1 = require("./product/product.module");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const order_module_1 = require("./order/order.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -72,6 +73,7 @@ exports.AppModule = AppModule = __decorate([
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(__dirname, '..', 'public'),
             }),
+            order_module_1.OrderModule,
         ],
     })
 ], AppModule);

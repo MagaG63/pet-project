@@ -1,0 +1,44 @@
+.detailButto {
+  margin-top: 20px;
+  width: 100%;
+  padding: 1.2rem 2rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  background: linear-gradient(135deg,rgba(168, 0, 0, 0.473));
+  color: rgb(255, 255, 255);
+  border: 2px solid rgba(162, 162, 162, 0.4);
+  cursor: pointer;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.detailButto::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.detailButto:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.45), rgba(255, 0, 0, 0.55));
+  box-shadow: 0 15px 35px rgba(255, 0, 0, 0.692);
+  transform: translateY(-4px);
+  border-color: rgb(255, 0, 0);
+}
+
+.detailButto:hover::before {
+  left: 100%;
+}
+
+.detailButto:active {
+  transform: translateY(-2px);
+}
